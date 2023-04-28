@@ -85,6 +85,7 @@ const FileInput: FC = () => {
           onClick={() => {
             onClick(false);
           }}
+          type="button"
         >
           📁 ファイルから選択
         </button>
@@ -93,6 +94,7 @@ const FileInput: FC = () => {
           onClick={() => {
             onClick("environment");
           }}
+          type="button"
           disabled={!isMobile()}
         >
           📷 カメラで撮影
@@ -102,6 +104,7 @@ const FileInput: FC = () => {
           onClick={() => {
             onClick("user");
           }}
+          type="button"
           disabled={!isMobile()}
         >
           🤳 セルフィーで撮影
