@@ -69,7 +69,7 @@ const FileInput: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "center", padding: "1em" }}>
         <input
           type="file"
           id="file"
@@ -86,37 +86,46 @@ const FileInput: FC = () => {
             onClick(false);
           }}
         >
-          [ 📁 ファイルから選択 ]
+          📁 ファイルから選択
         </button>
+        {"　"}
         <button
           onClick={() => {
             onClick("environment");
           }}
           disabled={!isMobile()}
         >
-          [ 📷 カメラで撮影 ]
+          📷 カメラで撮影
         </button>
+        {"　"}
         <button
           onClick={() => {
             onClick("user");
           }}
           disabled={!isMobile()}
         >
-          [ 🤳 セルフィーで撮影 ]
+          🤳 セルフィーで撮影
         </button>
         <div
           style={{
-            margin: "auto",
-            background: "#eeeeee",
-            width: "200px",
+            margin: "1em auto",
+            padding: "1em",
+            border: "1px dotted #ccc",
             minHeight: "200px",
+            background: "#eee",
           }}
         >
-          <img src={imageData} style={{ margin: "auto" }} />
-          <div>{fileName}</div>
-          <button onClick={reset}>[ ❌ CLOSE ]</button>
+          {fileName && (
+            <>
+              <img
+                src={imageData}
+                style={{ margin: "auto", maxWidth: "100%" }}
+              />
+              <div>{fileName}</div>
+              <button onClick={reset}>❌ CLOSE</button>
+            </>
+          )}
         </div>
-        <button type="submit">[ 🔥 SUBMIT ]</button>
         <div>
           {errors.file && (
             <span style={{ color: "red" }}>
@@ -124,6 +133,7 @@ const FileInput: FC = () => {
             </span>
           )}
         </div>
+        <button type="submit">🔥 SUBMIT</button>
       </div>
     </form>
   );
