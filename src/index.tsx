@@ -8,7 +8,7 @@ import "@/index.css";
 
 // pages
 import NotFound from "@/pages/404";
-import FileInput from "@/pages/FileInput";
+import FileInput from "@/pages/FileInput2";
 
 const Router: FC = () => {
   return (

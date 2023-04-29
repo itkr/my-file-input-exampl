@@ -1,58 +1,14 @@
-import { FC, useState, useRef, InputHTMLAttributes } from "react";
-import { useForm } from "react-hook-form";
+import { useState, useRef, InputHTMLAttributes } from "react";
 
 type FileInputProps = InputHTMLAttributes<HTMLInputElement> & {
   ref: (e: HTMLInputElement | null) => void;
-}
+};
 
-//const FileInput: FC<FileInputProps> = (props) => {
-//  const fileInput = useRef<HTMLInputElement | null>(null);
-//  const { ref, type, accept, style, ...rest } = props;
-//  return (
-//    <input
-//      //id="file"
-//      type={type || "file"}
-//      accept={accept || "image/*"}
-//      style={{ display: "none", ...style }}
-//      onChange={onChangeInput}
-//      ref={(e) => {
-//        ref(e);
-//        fileInput.current = e;
-//      }}
-//      {...rest}
-//    />
-//  );
-//};
-
-// FileInput, ImageDate, Trigger, FileInfo, Ref
-
-const FileInput: FC<FileInputProps> = (props) => {
-  const { ref, type, accept, style, onChange, ...rest } = props;
+const useFileInput = (props: FileInputProps) => {
+  const fileInput = useRef<HTMLInputElement | null>(null);
   const [fileName, setFileName] = useState("");
   const [imageData, setImageData] = useState("");
-  const fileInput = useRef<HTMLInputElement | null>(null);
-
-  const trigger = () => {
-    if (!fileInput.current) {
-      return;
-    }
-    fileInput.current.click();
-  }
-
-  const setAttribute = (name: string, value: string) => {
-    if (!fileInput.current) {
-      return;
-    }
-    fileInput.current.setAttribute(name, value);
-  }
-
-  const reset = () => {
-    setFileName("");
-    setImageData("");
-    if (fileInput.current) {
-      fileInput.current.value = "";
-    }
-  };
+  const { ref, type, accept, style, onChange, ...rest } = props;
 
   // private
   const deployment = (files: FileList) => {
@@ -66,32 +22,79 @@ const FileInput: FC<FileInputProps> = (props) => {
   };
 
   // private
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (!files || files.length <= 0) {
-      return;
-    }
+    if (!files || files.length <= 0) return;
     deployment(files);
     if (onChange) onChange(e);
   };
 
-  return (
-    <>
-      <input
-        //id="file"
-        type={type || "file"}
-        accept={accept || "image/*"}
-        style={{ display: "none", ...style }}
-        onChange={onChangeInput}
-        ref={(e) => {
-          ref(e);
-          fileInput.current = e;
-        }}
-        {...rest}
-      />
-    </>
+  // private
+  const ref2 = (e: HTMLInputElement | null) => {
+    ref(e);
+    fileInput.current = e;
+  };
+
+  const reset = () => {
+    setFileName("");
+    setImageData("");
+    if (!fileInput.current) return;
+    fileInput.current.value = "";
+  };
+
+  const trigger = () => {
+    if (!fileInput.current) return;
+    fileInput.current.click();
+  };
+
+  const setAttribute = (name: string, value: string) => {
+    if (!fileInput.current) return;
+    fileInput.current.setAttribute(name, value);
+  };
+
+  const removeAttribute = (name: string) => {
+    if (!fileInput.current) return;
+    fileInput.current.removeAttribute(name);
+  };
+
+  const selectFile = () => {
+    if (!fileInput.current) return;
+    removeAttribute("capture");
+    trigger();
+  };
+
+  const camera = () => {
+    if (!fileInput.current) return;
+    setAttribute("capture", "environment");
+    trigger();
+  };
+
+  const selfie = () => {
+    if (!fileInput.current) return;
+    setAttribute("capture", "user");
+    trigger();
+  };
+
+  const contextHolder = (
+    <input
+      type={type || "file"}
+      accept={accept || "image/*"}
+      style={{ display: "none", ...style }}
+      onChange={onChange2}
+      ref={ref2}
+      {...rest}
+    />
   );
+
+  return {
+    fileName,
+    imageData,
+    reset,
+    selectFile,
+    camera,
+    selfie,
+    contextHolder,
+  };
 };
 
-// TODO: 実装
-const useFileInput = () => {}
+export default useFileInput;
