@@ -32,14 +32,15 @@ const FileInput: FC = () => {
 
   // ファイル選択ボタンかカメラアップロードボタンをクリックする
   const onClick = (capture: "environment" | "user" | false) => {
-    if (fileInput.current) {
-      if (capture) {
-        fileInput.current.capture = capture;
-      } else {
-        fileInput.current.removeAttribute("capture");
-      }
-      fileInput.current.click();
+    if (!fileInput.current) {
+      return;
     }
+    if (capture) {
+      fileInput.current.capture = capture;
+    } else {
+      fileInput.current.removeAttribute("capture");
+    }
+    fileInput.current.click();
   };
 
   // ファイルを選択した時の処理
@@ -89,7 +90,6 @@ const FileInput: FC = () => {
         >
           📁 ファイルから選択
         </button>
-        {"　"}
         <button
           onClick={() => {
             onClick("environment");
@@ -99,19 +99,8 @@ const FileInput: FC = () => {
         >
           📷 カメラで撮影
         </button>
-        {"　"}
-        <button
-          onClick={() => {
-            onClick("user");
-          }}
-          type="button"
-          disabled={!isMobile()}
-        >
-          🤳 セルフィーで撮影
-        </button>
         <div
           style={{
-            margin: "1em auto",
             padding: "1em",
             border: "1px dotted #ccc",
             minHeight: "200px",
