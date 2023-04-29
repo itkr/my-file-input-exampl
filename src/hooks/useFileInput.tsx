@@ -22,7 +22,7 @@ const useFileInput = (props: FileInputProps) => {
   };
 
   // private
-  const onChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const _onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length <= 0) return;
     deployment(files);
@@ -30,7 +30,7 @@ const useFileInput = (props: FileInputProps) => {
   };
 
   // private
-  const ref2 = (e: HTMLInputElement | null) => {
+  const _ref = (e: HTMLInputElement | null) => {
     ref(e);
     fileInput.current = e;
   };
@@ -47,31 +47,21 @@ const useFileInput = (props: FileInputProps) => {
     fileInput.current.click();
   };
 
-  const setAttribute = (name: string, value: string) => {
-    if (!fileInput.current) return;
-    fileInput.current.setAttribute(name, value);
-  };
-
-  const removeAttribute = (name: string) => {
-    if (!fileInput.current) return;
-    fileInput.current.removeAttribute(name);
-  };
-
   const selectFile = () => {
     if (!fileInput.current) return;
-    removeAttribute("capture");
+    fileInput.current.removeAttribute("capture");
     trigger();
   };
 
   const camera = () => {
     if (!fileInput.current) return;
-    setAttribute("capture", "environment");
+    fileInput.current.setAttribute("capture", "environment");
     trigger();
   };
 
   const selfie = () => {
     if (!fileInput.current) return;
-    setAttribute("capture", "user");
+    fileInput.current.setAttribute("capture", "user");
     trigger();
   };
 
@@ -80,8 +70,8 @@ const useFileInput = (props: FileInputProps) => {
       type={type || "file"}
       accept={accept || "image/*"}
       style={{ display: "none", ...style }}
-      onChange={onChange2}
-      ref={ref2}
+      onChange={_onChange}
+      ref={_ref}
       {...rest}
     />
   );
