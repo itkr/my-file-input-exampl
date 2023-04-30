@@ -10,7 +10,6 @@ const useFileInput = (props: FileInputProps) => {
   const [imageData, setImageData] = useState("");
   const { ref, type, accept, style, onChange, ...rest } = props;
 
-  // private
   const deployment = (files: FileList) => {
     const file = files[0];
     const fileReader = new FileReader();
@@ -84,6 +83,7 @@ const useFileInput = (props: FileInputProps) => {
     camera,
     selfie,
     contextHolder,
+    deployment,
   };
 };
 
