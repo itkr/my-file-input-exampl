@@ -64,6 +64,7 @@ const FileInput: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <h1>File Input</h1>
       <div style={{ textAlign: "center", padding: "1em" }}>
         <input
           type="file"

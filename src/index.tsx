@@ -8,14 +8,18 @@ import "@/index.css";
 
 // pages
 import NotFound from "@/pages/404";
-import FileInput from "@/pages/FileInput2";
+import Home from "@/pages/Home";
+import FileInput from "@/pages/FileInput";
+import FileInput2 from "@/pages/FileInput2";
 
 const Router: FC = () => {
   return (
     <React.StrictMode>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<FileInput />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/sample" element={<FileInput />} />
+          <Route path="/hook" element={<FileInput2 />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
