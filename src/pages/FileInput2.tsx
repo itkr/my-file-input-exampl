@@ -17,15 +17,8 @@ const FileInput: FC = () => {
     required: "ファイルを選択してください",
   });
 
-  const {
-    fileName,
-    imageData,
-    reset,
-    selectFile,
-    camera,
-    selfie,
-    contextHolder,
-  } = useFileInput(inputProps);
+  const { file, imageData, reset, selectFile, camera, selfie, contextHolder } =
+    useFileInput(inputProps);
 
   const onSubmit = (values: any) => {
     console.log(values);
@@ -35,6 +28,7 @@ const FileInput: FC = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div style={{ textAlign: "center", padding: "1em" }}>
+        <h1>File Input Hook</h1>
         {contextHolder}
         <button onClick={selectFile} type="button">
           📁 ファイルから選択
@@ -50,13 +44,13 @@ const FileInput: FC = () => {
             background: "#eee",
           }}
         >
-          {fileName && (
+          {file && (
             <>
               <img
                 src={imageData}
                 style={{ margin: "auto", maxWidth: "100%" }}
               />
-              <div>{fileName}</div>
+              <div>{file?.name}</div>
               <button onClick={reset}>❌ CLOSE</button>
             </>
           )}

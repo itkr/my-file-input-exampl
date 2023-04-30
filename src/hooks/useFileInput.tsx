@@ -6,14 +6,14 @@ type FileInputProps = InputHTMLAttributes<HTMLInputElement> & {
 
 const useFileInput = (props: FileInputProps) => {
   const fileInput = useRef<HTMLInputElement | null>(null);
-  const [fileName, setFileName] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const [imageData, setImageData] = useState("");
   const { ref, type, accept, style, onChange, ...rest } = props;
 
   const deployment = (files: FileList) => {
     const file = files[0];
     const fileReader = new FileReader();
-    setFileName(file.name);
+    setFile(file);
     fileReader.onload = () => {
       setImageData(fileReader.result as string);
     };
@@ -35,7 +35,7 @@ const useFileInput = (props: FileInputProps) => {
   };
 
   const reset = () => {
-    setFileName("");
+    setFile(null);
     setImageData("");
     if (!fileInput.current) return;
     fileInput.current.value = "";
@@ -76,7 +76,7 @@ const useFileInput = (props: FileInputProps) => {
   );
 
   return {
-    fileName,
+    file,
     imageData,
     reset,
     selectFile,
