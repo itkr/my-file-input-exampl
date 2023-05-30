@@ -1,23 +1,21 @@
-import { FC, useState, useRef } from "react";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import useFileInput from "@/hooks/useFileInput";
 
 const isMobile = window.navigator.userAgent.toLowerCase().includes("mobile");
 
-const FileInput: FC = () => {
+const FileInputSampleWithHook: FC = () => {
   const {
     handleSubmit,
-    trigger,
-    setValue,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm();
 
   const inputProps = register("file", {
     required: "ファイルを選択してください",
   });
 
-  const { file, imageData, reset, selectFile, camera, selfie, contextHolder } =
+  const { file, imageData, reset, selectFile, camera, contextHolder } =
     useFileInput(inputProps);
 
   const onSubmit = (values: any) => {
@@ -27,8 +25,8 @@ const FileInput: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <h1>File Input Sample With Hook</h1>
       <div style={{ textAlign: "center", padding: "1em" }}>
-        <h1>File Input Hook</h1>
         {contextHolder}
         <button onClick={selectFile} type="button">
           📁 ファイルから選択
@@ -68,4 +66,4 @@ const FileInput: FC = () => {
   );
 };
 
-export default FileInput;
+export default FileInputSampleWithHook;

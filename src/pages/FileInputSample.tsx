@@ -3,16 +3,14 @@ import { useForm } from "react-hook-form";
 
 const isMobile = window.navigator.userAgent.toLowerCase().includes("mobile");
 
-const FileInput: FC = () => {
+const FileInputSample: FC = () => {
   const fileInput = useRef<HTMLInputElement | null>(null);
   const [fileName, setFileName] = useState("");
   const [imageData, setImageData] = useState("");
   const {
     handleSubmit,
-    trigger,
-    setValue,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +62,7 @@ const FileInput: FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h1>File Input</h1>
+      <h1>File Input Sample</h1>
       <div style={{ textAlign: "center", padding: "1em" }}>
         <input
           type="file"
@@ -115,4 +113,4 @@ const FileInput: FC = () => {
   );
 };
 
-export default FileInput;
+export default FileInputSample;
