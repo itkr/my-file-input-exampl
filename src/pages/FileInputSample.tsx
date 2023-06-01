@@ -26,6 +26,7 @@ const FileInputSample: FC = () => {
 
   const selectFile = () => {
     if (!fileInput.current) return;
+    fileInput.current.removeAttribute("capture");
     fileInput.current.click();
   };
 
